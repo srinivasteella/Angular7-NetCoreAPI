@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +25,13 @@ namespace VehicleSale.Demo.Controllers
         [ProducesResponseType(200, Type = typeof(List<string>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<string>>> Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
             IEnumerable<string> vehicleTypes;
 
             try
             {
-                vehicleTypes = await _vehicleService.GetVehicleTypes();
+                vehicleTypes = _vehicleService.GetVehicleTypes();
                 if (vehicleTypes == null) return NotFound();
             }
             catch (AggregateException)
