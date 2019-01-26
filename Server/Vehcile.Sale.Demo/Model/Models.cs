@@ -44,7 +44,7 @@ namespace VehicleSale.Demo.Model
     public class Car : Vehicle
     {
         [Required]
-        [RegularExpression(@"^[1-9]{1}$")]
+        [RegularExpression(@"^[0-9]{1}$")]
         [Display(Order = 3)]
         public int Doors { get; set; }
 
@@ -53,7 +53,7 @@ namespace VehicleSale.Demo.Model
         public string Engine { get; set; }
 
         [Required]
-        [RegularExpression(@"^[4-9]{1}$")]
+        [RegularExpression(@"^[0-9]{1}$")]
         [Display(Order = 5)]
         public int Wheels { get; set; }
 
@@ -67,12 +67,12 @@ namespace VehicleSale.Demo.Model
     public class Boat : Vehicle
     {
         [Required]
-        [RegularExpression(@"^[1-9]{1,2}$")]
+        [RegularExpression(@"^[0-9]{1,2}$")]
         [Display(Order = 7)]
         public int Storey { get; set; }
 
         [Required]
-        [RegularExpression(@"^[1-9]{1,5}$")]
+        [RegularExpression(@"^[0-9]{1,5}$")]
         [Display(Order = 8)]
         public int Seats { get; set; }
 

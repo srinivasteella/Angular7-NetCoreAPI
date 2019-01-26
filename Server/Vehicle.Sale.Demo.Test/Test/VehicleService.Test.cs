@@ -2,6 +2,7 @@ using Moq;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VehicleSale.Demo.Datastore;
 using VehicleSale.Demo.Model;
 using VehicleSale.Demo.Service;
@@ -34,7 +35,7 @@ namespace VehicleSale.Demo.UnitTest
             //when
             var result = sut.GetVehicleTypes();
             //
-            Assert.IsAssignableFrom<IEnumerable<string>>(result);
+            Assert.IsAssignableFrom<IEnumerable<string>>(result.Result);
         }
 
         [Fact]
@@ -46,7 +47,7 @@ namespace VehicleSale.Demo.UnitTest
             //when
             var result = sut.GetVehicleProperties("car");
             //
-            Assert.IsAssignableFrom<IEnumerable<VehicleInfo>>(result);
+            Assert.IsAssignableFrom<IEnumerable<VehicleInfo>>(result.Result);
 
         }
         [Fact]
@@ -54,7 +55,7 @@ namespace VehicleSale.Demo.UnitTest
         {
             //given
             moqVehicleConverter.Setup(m => m.Convert(It.IsAny<JObject>())).Returns(new Car());
-            moqDbService.Setup(m => m.AddVehicle(It.IsAny<Vehicle>())).Returns("success");
+            moqDbService.Setup(m => m.AddVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<string>("success"));
 
             var sut = new VehicleService(moqVehicleStrategyContext.Object, moqDbService.Object, moqVehicleConverter.Object);
             JObject carObject = JObject.FromObject(new Car()
@@ -72,14 +73,14 @@ namespace VehicleSale.Demo.UnitTest
             var result = sut.AddVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<string>(result);
+            Assert.IsAssignableFrom<string>(result.Result);
         }
         [Fact]
         public void UpdateVehicle_updates_the_vehicle_with_properties()
         {
             //given
             moqVehicleConverter.Setup(m => m.Convert(It.IsAny<JObject>())).Returns(new Car());
-            moqDbService.Setup(m => m.UpdateVehicle(It.IsAny<Vehicle>())).Returns("success");
+            moqDbService.Setup(m => m.UpdateVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<string>("success"));
             var sut = new VehicleService(moqVehicleStrategyContext.Object, moqDbService.Object, moqVehicleConverter.Object);
             JObject carObject = JObject.FromObject(new Car()
             {
@@ -94,27 +95,27 @@ namespace VehicleSale.Demo.UnitTest
             var result = sut.UpdateVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<string>(result);
+            Assert.IsAssignableFrom<string>(result.Result);
 
         }
         [Fact]
         public void GetAllVehicles_returns_all_vehicles()
         {
             //given
-            moqDbService.Setup(m => m.GetAllVehicles()).Returns(new List<Vehicle>());
+            moqDbService.Setup(m => m.GetAllVehicles()).Returns(Task.FromResult<IEnumerable<Vehicle>>(new List<Vehicle>()));
             var sut = new VehicleService(moqVehicleStrategyContext.Object, moqDbService.Object, moqVehicleConverter.Object);
 
             //when
             var result = sut.GetAllVehicles();
 
             //then
-            Assert.IsAssignableFrom<IEnumerable<Vehicle>>(result);
+            Assert.IsAssignableFrom<IEnumerable<Vehicle>>(result.Result);
         }
 
         [Fact]
         public void GetSpecificVehicle_returns_specific_vehicle()
         {
-            moqDbService.Setup(m => m.GetSpecificVehicle(It.IsAny<Vehicle>())).Returns(new Car());
+            moqDbService.Setup(m => m.GetSpecificVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<Vehicle>(new Car()));
             moqVehicleConverter.Setup(m => m.Convert(It.IsAny<JObject>())).Returns(new Car());
 
             //given 
@@ -128,7 +129,7 @@ namespace VehicleSale.Demo.UnitTest
             var result = sut.GetSpecificVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<Vehicle>(result);
+            Assert.IsAssignableFrom<Vehicle>(result.Result);
 
         }
     }

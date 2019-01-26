@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VehicleSale.Demo.Model;
 
 namespace VehicleSale.Demo.Service
 {
     public interface IDbService
     {
-        string AddVehicle(Vehicle vehicle);
+        Task<string> AddVehicle(Vehicle vehicle);
 
-        string UpdateVehicle(Vehicle vehicle);
+        Task<string> UpdateVehicle(Vehicle vehicle);
 
-        IEnumerable<Vehicle> GetAllVehicles();
+        Task<IEnumerable<Vehicle>> GetAllVehicles();
 
-        Vehicle GetSpecificVehicle(Vehicle vehicle);
+        Task<Vehicle> GetSpecificVehicle(Vehicle vehicle);
 
     }
     public class DbService : IDbService
@@ -29,38 +30,78 @@ namespace VehicleSale.Demo.Service
             dict.Add(VehicleType.CAR, _carService);
         }
 
-        public string AddVehicle(Vehicle vehicle)
+        public async Task<string> AddVehicle(Vehicle vehicle)
         {
-            return dict[vehicle.VehicleType].AddVehicle(vehicle);
-        }
-
-        public IEnumerable<Vehicle> GetAllVehicles()
-        {
-
-            var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>();
-
-            return GetAll(vehicleTypes);
-        }
-
-        IEnumerable<Vehicle> GetAll(IEnumerable<VehicleType> vehicleTypes)
-        {
-            var vehicles = new List<Vehicle>();
-
-            foreach (var vehicleType in vehicleTypes)
+            try
             {
-                vehicles.AddRange(dict[vehicleType].ViewAllVehicle());
+                return await dict[vehicle.VehicleType].AddVehicle(vehicle);
             }
-            return vehicles;
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return e.Message;
+            }
         }
 
-        public string UpdateVehicle(Vehicle vehicle)
+        public async Task<IEnumerable<Vehicle>> GetAllVehicles()
         {
-            return dict[vehicle.VehicleType].UpdateVehicle(vehicle);
+            try
+            {
+                var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>();
+
+                return await GetAll(vehicleTypes);
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
         }
 
-        public Vehicle GetSpecificVehicle(Vehicle vehicle)
+        async Task<IEnumerable<Vehicle>> GetAll(IEnumerable<VehicleType> vehicleTypes)
         {
-            return dict[vehicle.VehicleType].GetSpecificVehicle(vehicle);
+            try
+            {
+                var vehicles = new List<Vehicle>();
+
+                foreach (var vehicleType in vehicleTypes)
+                {
+
+                    vehicles.AddRange(await dict[vehicleType].ViewAllVehicle());
+                }
+                return vehicles;
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
+        }
+
+        public async Task<string> UpdateVehicle(Vehicle vehicle)
+        {
+            try
+            {
+                return await dict[vehicle.VehicleType].UpdateVehicle(vehicle);
+            }
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return e.Message;
+            }
+        }
+
+        public async Task<Vehicle> GetSpecificVehicle(Vehicle vehicle)
+        {
+            try
+            {
+                return await dict[vehicle.VehicleType].GetSpecificVehicle(vehicle);
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
         }
     }
 }

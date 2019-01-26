@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VehicleSale.Demo.Datastore;
 using VehicleSale.Demo.Model;
 using VehicleSale.Demo.Service;
@@ -42,44 +43,44 @@ namespace VehicleSale.Demo.UnitTest
         {
             //given
             SUCCESS = "SUCCESS";
-            moqCarService.Setup(m => m.AddVehicle(It.IsAny<Vehicle>())).Returns(SUCCESS);
+            moqCarService.Setup(m => m.AddVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<string>(SUCCESS));
             var sut = new DbService(moqCarService.Object, moqBoatService.Object);
 
             //when
             var result = sut.AddVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<String>(result);
-            Assert.Same(SUCCESS, result);
+            Assert.IsAssignableFrom<String>(result.Result);
+            Assert.Same(SUCCESS, result.Result);
         }
         [Fact]
         public void UpdateVehicle_updates_vehicle_of_the_specific_type()
         {
             //given
             SUCCESS = "SUCCESS";
-            moqCarService.Setup(m => m.UpdateVehicle(It.IsAny<Vehicle>())).Returns(SUCCESS);
+            moqCarService.Setup(m => m.UpdateVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<string>(SUCCESS));
             var sut = new DbService(moqCarService.Object, moqBoatService.Object);
 
             //when
             var result = sut.UpdateVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<String>(result);
-            Assert.Same(SUCCESS, result);
+            Assert.IsAssignableFrom<String>(result.Result);
+            Assert.Same(SUCCESS, result.Result);
         }
 
         [Fact]
         public void GetAllVehicles_returns_all_vehicles()
         {
             //given
-            moqCarService.Setup(m => m.ViewAllVehicle()).Returns(new List<Vehicle>());
+            moqCarService.Setup(m => m.ViewAllVehicle()).Returns(Task.FromResult<IEnumerable<Vehicle>>(new List<Vehicle>()));
             var sut = new DbService(moqCarService.Object, moqBoatService.Object);
 
             //when
             var result = sut.GetAllVehicles();
 
             //then
-            Assert.IsAssignableFrom<IEnumerable<Vehicle>>(result);
+            Assert.IsAssignableFrom<IEnumerable<Vehicle>>(result.Result);
         }
 
         [Fact]
@@ -87,14 +88,14 @@ namespace VehicleSale.Demo.UnitTest
         {
             //given
             SUCCESS = "SUCCESS";
-            moqCarService.Setup(m => m.GetSpecificVehicle(It.IsAny<Vehicle>())).Returns(new Car());
+            moqCarService.Setup(m => m.GetSpecificVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<Vehicle>(new Car()));
             var sut = new DbService(moqCarService.Object, moqBoatService.Object);
 
             //when
             var result = sut.GetSpecificVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<Vehicle>(result);
+            Assert.IsAssignableFrom<Vehicle>(result.Result);
 
         }
 

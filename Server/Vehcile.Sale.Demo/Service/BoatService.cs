@@ -18,38 +18,70 @@ namespace VehicleSale.Demo.Service
             _context = context;
         }
 
-        public string AddVehicle(Vehicle vehicle)
+        public async Task<string> AddVehicle(Vehicle vehicle)
         {
-            Boat newboat = vehicle as Boat;
-            _context.Add(newboat);
-            _context.SaveChanges();
-            return "Success";
+            try
+            {
+                Boat newboat = vehicle as Boat;
+                _context.Add(newboat);
+                await _context.SaveChangesAsync();
+                return "Success";
+            }
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return e.Message;
+            }
         }
 
-        public string UpdateVehicle(Vehicle vehicle)
+        public async Task<string> UpdateVehicle(Vehicle vehicle)
         {
-            Boat editBoat = vehicle as Boat;
-            var targetItem = _context.Boats.Find(editBoat.Id);
-            if (targetItem == null)
-                return "Item not found";
+            try
+            {
+                Boat editBoat = vehicle as Boat;
+                var targetItem = _context.Boats.Find(editBoat.Id);
+                if (targetItem == null)
+                    return "Item not found";
 
-            _context.Entry(targetItem).CurrentValues.SetValues(editBoat);
-            _context.SaveChanges();
-            return "Success";
+                _context.Entry(targetItem).CurrentValues.SetValues(editBoat);
+                await _context.SaveChangesAsync();
+                return "Success";
+            }
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return e.Message;
+            }
         }
 
-        public Vehicle GetSpecificVehicle(Vehicle vehicle)
+        public async Task<Vehicle> GetSpecificVehicle(Vehicle vehicle)
         {
-            var targetItem = _context.Boats.Find(vehicle.Id);
-            if (targetItem == null)
-                return new Boat();
+            try
+            {
+                var targetItem = await _context.Boats.FindAsync(vehicle.Id);
+                if (targetItem == null)
+                    return new Boat();
 
-            return targetItem;
+                return targetItem;
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
         }
 
-        public IEnumerable<Vehicle> ViewAllVehicle()
+        public async Task<IEnumerable<Vehicle>> ViewAllVehicle()
         {
-            return _context.Boats;
+            try
+            {
+                return _context.Boats;
+            }
+            catch
+            {
+                return null;
+            }
         }
+
     }
 }

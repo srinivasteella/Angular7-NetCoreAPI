@@ -22,11 +22,18 @@ namespace VehicleSale.Demo.Service
         }
         public Vehicle Convert(JObject vehicleObj)
         {
-            var vehicleType = vehicleObj.GetValue("VehicleType");//.ToObject<int>();
+            JToken vehicleType;
+            if (vehicleObj.TryGetValue("VehicleType", out vehicleType))//.ToObject<int>();
+            {
+                VehicleType enumName;
 
-            VehicleType enumName = (VehicleType)Enum.Parse(typeof(VehicleType), vehicleType.ToObject<string>(), true);
+                if (Enum.TryParse(vehicleType.ToString(), true, out enumName))
 
-            return dict[enumName].Invoke(vehicleObj);
+                    return dict[enumName].Invoke(vehicleObj);
+
+                else return null;
+            }
+            else return null;
         }
 
         Car GetCar(JObject vehicleObj)

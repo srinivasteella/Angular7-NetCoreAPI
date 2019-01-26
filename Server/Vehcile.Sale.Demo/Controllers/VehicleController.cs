@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using VehicleSale.Demo.Model;
@@ -24,18 +25,22 @@ namespace VehicleSale.Demo.Controllers
         [ProducesResponseType(200, Type = typeof(List<string>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> Get()
         {
+            IEnumerable<string> vehicleTypes;
+
             try
             {
-                var vehicleTypes = _vehicleService.GetVehicleTypes();
+                vehicleTypes = await _vehicleService.GetVehicleTypes();
                 if (vehicleTypes == null) return NotFound();
-                return Ok(vehicleTypes);
             }
             catch (Exception)
             {
                 return BadRequest();//shout/catch/throw/log
             }
+
+            return Ok(vehicleTypes);
+
         }
         /// <summary>
         /// Retrieves all properties of the supplied vehicle type
@@ -46,19 +51,24 @@ namespace VehicleSale.Demo.Controllers
         [ProducesResponseType(200, Type = typeof(List<string>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public ActionResult<IEnumerable<VehicleInfo>> GetVehicleProperties(string type)
+        public async Task<ActionResult<IEnumerable<VehicleInfo>>> GetVehicleProperties(string type)
 
         {
+            if (string.IsNullOrEmpty(type)) return BadRequest(ModelState);
+
+            IEnumerable<VehicleInfo> vehicleProperties;
             try
             {
-                var vehicleProperties = _vehicleService.GetVehicleProperties(type);
+                vehicleProperties = await _vehicleService.GetVehicleProperties(type);
                 if (vehicleProperties == null) return NotFound();
-                return Ok(vehicleProperties);
             }
             catch (Exception)
             {
                 return BadRequest();//shout/catch/throw/log
             }
+
+            return Ok(vehicleProperties);
+
         }
         /// <summary>
         /// Retrieves all the vehicles
@@ -68,18 +78,21 @@ namespace VehicleSale.Demo.Controllers
         [ProducesResponseType(200, Type = typeof(List<Vehicle>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public ActionResult<List<Vehicle>> GetAllVehicles()
+        public async Task<ActionResult<List<Vehicle>>> GetAllVehicles()
         {
+            IEnumerable<Vehicle> vehicles;
             try
             {
-                var vehicles = _vehicleService.GetAllVehicles();
+                vehicles = await _vehicleService.GetAllVehicles();
                 if (vehicles == null) return NotFound();
-                return Ok(vehicles);
             }
             catch (Exception)
             {
                 return BadRequest();//shout/catch/throw/log
             }
+
+            return Ok(vehicles);
+
         }
         /// <summary>
         /// Add a vehicle with detail
@@ -89,18 +102,22 @@ namespace VehicleSale.Demo.Controllers
         [HttpPost("Add")]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(400)]
-        public ActionResult<string> AddVehicle([FromBody]JObject vehicle)
+        public async Task<ActionResult<string>> AddVehicle([FromBody]JObject vehicle)
         {
             if (vehicle == null || !ModelState.IsValid) return BadRequest(ModelState);
+
+            string vehicleAddmessage;
+
             try
             {
-                var vehicleAddmessage = _vehicleService.AddVehicle(vehicle);
-                return Ok(vehicleAddmessage);
+                vehicleAddmessage = await _vehicleService.AddVehicle(vehicle);
             }
             catch (Exception)
             {
                 return BadRequest();//shout/catch/throw/log
             }
+
+            return Ok(vehicleAddmessage);
         }
 
         /// <summary>
@@ -111,18 +128,24 @@ namespace VehicleSale.Demo.Controllers
         [HttpPost("Get")]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(400)]
-        public ActionResult<Vehicle> GetSpecificVehicle([FromBody]JObject vehicle)
+        public async Task<ActionResult<Vehicle>> GetSpecificVehicle([FromBody]JObject vehicle)
         {
             if (vehicle == null || !ModelState.IsValid) return BadRequest(ModelState);
+
+            Vehicle specificvehicle;
             try
             {
-                var vehicleAddmessage = _vehicleService.GetSpecificVehicle(vehicle);
-                return Ok(vehicleAddmessage);
+                specificvehicle = await _vehicleService.GetSpecificVehicle(vehicle);
+                if (specificvehicle == null)
+                    return NotFound();
             }
             catch (Exception)
             {
                 return BadRequest();//shout/catch/throw/log
             }
+
+            return Ok(specificvehicle);
+
         }
 
         /// <summary>
@@ -133,18 +156,23 @@ namespace VehicleSale.Demo.Controllers
         [HttpPut("Update")]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(400)]
-        public ActionResult<string> UpdateVehicle([FromBody]JObject vehicle)
+        public async Task<ActionResult<string>> UpdateVehicle([FromBody]JObject vehicle)
         {
             if (vehicle == null || !ModelState.IsValid) return BadRequest(ModelState);
+
+            string updatedMessage;
+
             try
             {
-                var updatedMessage = _vehicleService.UpdateVehicle(vehicle);
-                return Ok(updatedMessage);
+                updatedMessage = await _vehicleService.UpdateVehicle(vehicle);
             }
             catch (Exception)
             {
                 return BadRequest();//shout/catch/throw/log
             }
+
+            return Ok(updatedMessage);
+
         }
     }
 }

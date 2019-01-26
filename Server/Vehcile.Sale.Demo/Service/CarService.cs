@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace VehicleSale.Demo.Service
 {
     public interface IService
     {
-        string AddVehicle(Vehicle vehicle);
-        string UpdateVehicle(Vehicle vehicle);
-        IEnumerable<Vehicle> ViewAllVehicle();
-        Vehicle GetSpecificVehicle(Vehicle vehicle);
+        Task<string> AddVehicle(Vehicle vehicle);
+        Task<string> UpdateVehicle(Vehicle vehicle);
+        Task<IEnumerable<Vehicle>> ViewAllVehicle();
+        Task<Vehicle> GetSpecificVehicle(Vehicle vehicle);
 
 
     }
@@ -27,38 +28,70 @@ namespace VehicleSale.Demo.Service
             _context = context;
         }
 
-        public string AddVehicle(Vehicle vehicle)
+        public async Task<string> AddVehicle(Vehicle vehicle)
         {
-            Car car = vehicle as Car;
-            _context.Add(car);
-            _context.SaveChanges();
-            return "Success";
+            try
+            {
+                Car car = vehicle as Car;
+                _context.Add(car);
+                await _context.SaveChangesAsync();
+                return "Success";
+            }
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return e.Message;
+            }
         }
 
-        public Vehicle GetSpecificVehicle(Vehicle vehicle)
+        public async Task<Vehicle> GetSpecificVehicle(Vehicle vehicle)
         {
-            var targetItem = _context.Cars.Find(vehicle.Id);
-            if (targetItem == null)
-                return new Car();
+            try
+            {
+                var targetItem = await _context.Cars.FindAsync(vehicle.Id);
+                if (targetItem == null)
+                    return new Car();
 
-            return targetItem;
+                return targetItem;
+            }
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return null;
+            }
         }
 
-        public string UpdateVehicle(Vehicle vehicle)
+        public async Task<string> UpdateVehicle(Vehicle vehicle)
         {
-            var targetItem = _context.Cars.Find(vehicle.Id);
-            Car car = vehicle as Car;
-            if (targetItem == null)
-                return "Item not found";
+            try
+            {
+                var targetItem = _context.Cars.Find(vehicle.Id);
+                Car car = vehicle as Car;
+                if (targetItem == null)
+                    return "Item not found";
 
-            _context.Entry(targetItem).CurrentValues.SetValues(car);
-            _context.SaveChanges();
-            return "Success";
+                _context.Entry(targetItem).CurrentValues.SetValues(car);
+                await _context.SaveChangesAsync();
+                return "Success";
+            }
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return e.Message;
+            }
         }
 
-        public IEnumerable<Vehicle> ViewAllVehicle()
+        public async Task<IEnumerable<Vehicle>> ViewAllVehicle()
         {
-            return _context.Cars;
+            try
+            {
+                return _context.Cars;
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
         }
 
     }

@@ -2,20 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VehicleSale.Demo.Model;
 
 namespace VehicleSale.Demo.Service
 {
     public interface IVehicleService
     {
-        IEnumerable<string> GetVehicleTypes();
-        IEnumerable<VehicleInfo> GetVehicleProperties(string vehicleType);
-        string AddVehicle(JObject vehicle);
-        string UpdateVehicle(JObject vehicle);
-        IEnumerable<Vehicle> GetAllVehicles();
-        Vehicle GetSpecificVehicle(JObject vehicle);
-
-
+        Task<IEnumerable<string>> GetVehicleTypes();
+        Task<IEnumerable<VehicleInfo>> GetVehicleProperties(string vehicleType);
+        Task<string> AddVehicle(JObject vehicle);
+        Task<string> UpdateVehicle(JObject vehicle);
+        Task<IEnumerable<Vehicle>> GetAllVehicles();
+        Task<Vehicle> GetSpecificVehicle(JObject vehicle);
     }
     public class VehicleService : IVehicleService
     {
@@ -29,57 +28,98 @@ namespace VehicleSale.Demo.Service
             _vehicleConverter = vehicleConverter;
         }
 
-        public string AddVehicle(JObject vehicleObj)
+        public async Task<string> AddVehicle(JObject vehicleObj)
         {
 
             try
             {
                 var vehicle = _vehicleConverter.Convert(vehicleObj);
-
-                return _dbService.AddVehicle(vehicle);
+                if (vehicle != null)
+                    return await _dbService.AddVehicle(vehicle);
+                else return "Vehicle type not found";
             }
             catch (Exception e)
             {
-
-                return e.Message; // throw//log//shout
+                //shout/catch/throw/log
+                return e.Message;
             }
         }
 
-        public IEnumerable<Vehicle> GetAllVehicles()
+        public async Task<IEnumerable<Vehicle>> GetAllVehicles()
         {
             try
             {
-                return _dbService.GetAllVehicles();
+                return await _dbService.GetAllVehicles();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw;
+                //shout/catch/throw/log
+                return null;
             }
         }
 
-        public Vehicle GetSpecificVehicle(JObject vehicleObj)
+        public async Task<Vehicle> GetSpecificVehicle(JObject vehicleObj)
         {
-            var vehicle = _vehicleConverter.Convert(vehicleObj);
-
-            return _dbService.GetSpecificVehicle(vehicle);
+            Vehicle vehicle;
+            try
+            {
+                vehicle = _vehicleConverter.Convert(vehicleObj);
+                if (vehicle != null)
+                    return await _dbService.GetSpecificVehicle(vehicle);
+                else return null;
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
         }
 
-        public IEnumerable<VehicleInfo> GetVehicleProperties(string vehicleType)
+        public async Task<IEnumerable<VehicleInfo>> GetVehicleProperties(string vehicleType)
         {
-            VehicleType enumName = (VehicleType)Enum.Parse(typeof(VehicleType), vehicleType, true);
-            return _vehicleStrategyContext.GetVehicleProperties(enumName).OrderBy(a => a.Order);
+            VehicleType enumName;
+            try
+            {
+                if (Enum.TryParse(vehicleType, true, out enumName))
+                    return _vehicleStrategyContext.GetVehicleProperties(enumName).OrderBy(a => a.Order);
+                else return null;
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
+
         }
 
-        public IEnumerable<string> GetVehicleTypes()
+        public async Task<IEnumerable<string>> GetVehicleTypes()
         {
-            return Enum.GetNames(typeof(VehicleType));
+            try
+            {
+                return Enum.GetNames(typeof(VehicleType));
+            }
+            catch
+            {
+                //shout/catch/throw/log
+                return null;
+            }
         }
 
-        public string UpdateVehicle(JObject vehicleObj)
+        public async Task<string> UpdateVehicle(JObject vehicleObj)
         {
-            var vehicle = _vehicleConverter.Convert(vehicleObj);
-
-            return _dbService.UpdateVehicle(vehicle);
+            Vehicle vehicle;
+            try
+            {
+                vehicle = _vehicleConverter.Convert(vehicleObj);
+                if (vehicle != null)
+                    return await _dbService.UpdateVehicle(vehicle);
+                else return "Vehicle type not found";
+            }
+            catch (Exception e)
+            {
+                //shout/catch/throw/log
+                return e.Message;
+            }
         }
     }
 }

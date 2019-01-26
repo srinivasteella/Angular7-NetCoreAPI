@@ -49,7 +49,7 @@ namespace VehicleSale.Demo.IntegrationTest
             var result = sut.GetVehicleTypes();
 
             //then
-            Assert.IsAssignableFrom<IEnumerable<string>>(result);
+            Assert.IsAssignableFrom<IEnumerable<string>>(result.Result);
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace VehicleSale.Demo.IntegrationTest
             //when
             var result = sut.GetVehicleProperties("car");
             //
-            Assert.IsAssignableFrom<IEnumerable<VehicleInfo>>(result);
+            Assert.IsAssignableFrom<IEnumerable<VehicleInfo>>(result.Result);
 
         }
         [Fact]
@@ -85,7 +85,7 @@ namespace VehicleSale.Demo.IntegrationTest
             var result = sut.AddVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<string>(result);
+            Assert.IsAssignableFrom<string>(result.Result);
         }
         [Fact]
         public void UpdateVehicle_updates_the_vehicle_with_properties()
@@ -107,7 +107,7 @@ namespace VehicleSale.Demo.IntegrationTest
             var result = sut.UpdateVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<string>(result);
+            Assert.IsAssignableFrom<string>(result.Result);
 
         }
         [Fact]
@@ -120,7 +120,7 @@ namespace VehicleSale.Demo.IntegrationTest
             var result = sut.GetAllVehicles();
 
             //then
-            Assert.IsAssignableFrom<IEnumerable<Vehicle>>(result);
+            Assert.IsAssignableFrom<IEnumerable<Vehicle>>(result.Result);
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace VehicleSale.Demo.IntegrationTest
             var result = sut.GetSpecificVehicle(carObject);
 
             //then
-            Assert.IsAssignableFrom<Vehicle>(result);
+            Assert.IsAssignableFrom<Vehicle>(result.Result);
 
         }
     }
