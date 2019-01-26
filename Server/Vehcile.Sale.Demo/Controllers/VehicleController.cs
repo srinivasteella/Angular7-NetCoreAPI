@@ -34,7 +34,7 @@ namespace VehicleSale.Demo.Controllers
                 vehicleTypes = await _vehicleService.GetVehicleTypes();
                 if (vehicleTypes == null) return NotFound();
             }
-            catch (Exception)
+            catch (AggregateException)
             {
                 return BadRequest();//shout/catch/throw/log
             }
@@ -62,7 +62,7 @@ namespace VehicleSale.Demo.Controllers
                 vehicleProperties = await _vehicleService.GetVehicleProperties(type);
                 if (vehicleProperties == null) return NotFound();
             }
-            catch (Exception)
+            catch (AggregateException)
             {
                 return BadRequest();//shout/catch/throw/log
             }
@@ -86,7 +86,7 @@ namespace VehicleSale.Demo.Controllers
                 vehicles = await _vehicleService.GetAllVehicles();
                 if (vehicles == null) return NotFound();
             }
-            catch (Exception)
+            catch (AggregateException)
             {
                 return BadRequest();//shout/catch/throw/log
             }
@@ -112,7 +112,7 @@ namespace VehicleSale.Demo.Controllers
             {
                 vehicleAddmessage = await _vehicleService.AddVehicle(vehicle);
             }
-            catch (Exception)
+            catch (AggregateException)
             {
                 return BadRequest();//shout/catch/throw/log
             }
@@ -139,7 +139,7 @@ namespace VehicleSale.Demo.Controllers
                 if (specificvehicle == null)
                     return NotFound();
             }
-            catch (Exception)
+            catch (AggregateException)
             {
                 return BadRequest();//shout/catch/throw/log
             }
@@ -166,7 +166,7 @@ namespace VehicleSale.Demo.Controllers
             {
                 updatedMessage = await _vehicleService.UpdateVehicle(vehicle);
             }
-            catch (Exception)
+            catch (AggregateException)
             {
                 return BadRequest();//shout/catch/throw/log
             }
