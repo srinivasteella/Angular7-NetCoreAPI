@@ -62,8 +62,9 @@ The overall objective of the applications is to make an API that allows to manag
 >   
 >   5. **Server** [backend webapi service] shall start running on port **5000**
 >   6. Access the API from here : http://localhost:5000
->   7. ![VehicleListHome](https://github.com/srinivasteella/Angular7-NetCoreAPI/blob/master/swagger.JPG "VehicleList")
-
+==================================================================================================================================   
+![Swagger](https://github.com/srinivasteella/Angular7-NetCoreAPI/blob/master/swagger.JPG "Webapi")
+==================================================================================================================================
 ##### b) To start the front end application
 >  Within Visual Studio Code Open a new command terminal 
 >  
@@ -74,7 +75,11 @@ The overall objective of the applications is to make an API that allows to manag
 >  Now in order to run the angular application (front end application), type npm start on the terminal
 >  
 >  Shortly a browser shall open with url as localhost:5050
-
+==================================================================================================================================
+![Home](https://github.com/srinivasteella/Angular7-NetCoreAPI/blob/master/home.JPG "Angular")
+==================================================================================================================================
+![Add](https://github.com/srinivasteella/Angular7-NetCoreAPI/blob/master/Add.JPG "Angular")
+==================================================================================================================================
 ##### (c) To run the unit test project
 >   1. Open solution in **Visual Studio 2017**
 >   
