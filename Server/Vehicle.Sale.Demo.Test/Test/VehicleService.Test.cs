@@ -35,14 +35,14 @@ namespace VehicleSale.Demo.UnitTest
             //when
             var result = sut.GetVehicleTypes();
             //
-            Assert.IsAssignableFrom<IEnumerable<string>>(result.Result);
+            Assert.IsAssignableFrom<IEnumerable<string>>(result);
         }
 
         [Fact]
         public void GetVehicleProperties_returns_all_vehicles_properties()
         {
             //given
-            moqVehicleStrategyContext.Setup(m => m.GetVehicleProperties(It.IsAny<VehicleType>())).Returns(new List<VehicleInfo>());
+            moqVehicleStrategyContext.Setup(m => m.GetVehicleProperties(It.IsAny<VehicleType>())).Returns(Task.FromResult<IEnumerable<VehicleInfo>>(new List<VehicleInfo>()));
             var sut = new VehicleService(moqVehicleStrategyContext.Object, moqDbService.Object, moqVehicleConverter.Object);
             //when
             var result = sut.GetVehicleProperties("car");

@@ -49,7 +49,7 @@ namespace VehicleSale.Demo.IntegrationTest
             var result = sut.GetVehicleTypes();
 
             //then
-            Assert.IsAssignableFrom<IEnumerable<string>>(result.Result);
+            Assert.IsAssignableFrom<IEnumerable<string>>(result);
         }
 
         [Fact]

@@ -20,7 +20,7 @@ namespace VehicleSale.Demo.UnitTest
             var result = sut.GetVehicleProperties(VehicleType.CAR);
 
             //
-            Assert.IsAssignableFrom<IEnumerable<VehicleInfo>>(result);
+            Assert.IsAssignableFrom<IEnumerable<VehicleInfo>>(result.Result);
         }
 
         [Fact]
