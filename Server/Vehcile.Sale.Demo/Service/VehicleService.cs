@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace VehicleSale.Demo.Service
 {
     public interface IVehicleService
     {
-        Task<IEnumerable<string>> GetVehicleTypes();
+        IEnumerable<string> GetVehicleTypes();
         Task<IEnumerable<VehicleInfo>> GetVehicleProperties(string vehicleType);
         Task<string> AddVehicle(JObject vehicle);
         Task<string> UpdateVehicle(JObject vehicle);
@@ -51,7 +51,7 @@ namespace VehicleSale.Demo.Service
             {
                 return await _dbService.GetAllVehicles();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //shout/catch/throw/log
                 return null;
@@ -81,7 +81,10 @@ namespace VehicleSale.Demo.Service
             try
             {
                 if (Enum.TryParse(vehicleType, true, out enumName))
-                    return _vehicleStrategyContext.GetVehicleProperties(enumName).OrderBy(a => a.Order);
+                {
+                    var vTypes = await _vehicleStrategyContext.GetVehicleProperties(enumName);
+                    return vTypes.OrderBy(a => a.Order);
+                }
                 else return null;
             }
             catch
@@ -92,7 +95,7 @@ namespace VehicleSale.Demo.Service
 
         }
 
-        public async Task<IEnumerable<string>> GetVehicleTypes()
+        public IEnumerable<string> GetVehicleTypes()
         {
             try
             {
