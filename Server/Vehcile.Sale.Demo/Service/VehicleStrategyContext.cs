@@ -9,7 +9,7 @@ namespace VehicleSale.Demo.Service
 {
     public interface IVehicleStrategyContext
     {
-        IEnumerable<VehicleInfo> GetVehicleProperties(VehicleType vehicleType);
+        Task<IEnumerable<VehicleInfo>> GetVehicleProperties(VehicleType vehicleType);
         Vehicle GetVehicleType(VehicleType vehicleType);
 
     }
@@ -21,7 +21,21 @@ namespace VehicleSale.Demo.Service
             vehicleDictionary.Add(VehicleType.CAR, new Car());
             vehicleDictionary.Add(VehicleType.BOAT, new Boat());
         }
-        public IEnumerable<VehicleInfo> GetVehicleProperties(VehicleType vehicleType)
+        public async Task<IEnumerable<VehicleInfo>> GetVehicleProperties(VehicleType vehicleType)
+        {
+            IEnumerable<VehicleInfo> vehicleProperties = null;
+            try
+            {
+                vehicleProperties= await Task.Run(() => GetProperties(vehicleType));
+            }
+            catch (Exception)
+            {
+                //shout/catch/throw/log
+            }
+            return vehicleProperties;
+
+        }
+        IEnumerable<VehicleInfo> GetProperties(VehicleType vehicleType)
         {
             var vehicle = vehicleDictionary[vehicleType];
 
