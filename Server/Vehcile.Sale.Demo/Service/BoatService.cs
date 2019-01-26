@@ -75,7 +75,7 @@ namespace VehicleSale.Demo.Service
         {
             try
             {
-                return _context.Boats;
+               return await Task.Run(()=> _context.Boats);
             }
             catch
             {
