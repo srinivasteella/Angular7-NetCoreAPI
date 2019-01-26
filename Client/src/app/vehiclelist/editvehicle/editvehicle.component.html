@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+          <div class="row">
+              <h3>Please fill below form</h3>
+          </div>
+        <form *ngIf='bindablevehicle' [formGroup]= "editform"   novalidate (ngSubmit)='onSubmit()'>
+            <div *ngFor="let prop of bindablevehicle let i = index">
+                <label [attr.for]="prop" class="control-label required">{{prop.Name}}</label>
+                <input
+                  type="text"
+                  [id]="i"
+                  [formControlName]= "prop.Name"
+                  [pattern]= "prop.Regex"
+                  class="form-control"
+                  [required] = "prop.Required">
+                  <span *ngIf="!editform.get(prop.Name).valid && editform.get(prop.Name).touched" class="help-block">
+                      Please enter {{prop.Name}}
+                    </span>
+                          </div>
+              <br>
+            <span *ngIf="!editform.valid && editform.touched" class="help-block">
+                Please enter a valid data
+              </span>
+              <button class="btn btn-primary" type="submit" [disabled]="!editform.valid">Update</button>
+              <button class="btn btn-primary" type="button" style="margin-left: 5px" (click)='cancel()'>Cancel</button>
+
+        </form>
+      </div>
+    </div>
+  </div>

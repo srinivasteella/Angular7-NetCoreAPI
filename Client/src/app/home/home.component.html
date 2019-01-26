@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class = "btn-group" appDropdowndirective>
+      <button class="btn btn-primary" dropdown-toggle>Add Vehicle <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a style= "cursor:pointer" [routerLink]="[ '/Add',vehicle ]" *ngFor="let vehicle of vehicletypes let i = index">{{vehicle}}</a></li>
+    </ul>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+          <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

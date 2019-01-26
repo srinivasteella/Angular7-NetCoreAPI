@@ -1,0 +1,36 @@
+  <div class="container">
+      <div class="row">
+          <div class="card">
+              <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Vehicle List</h3>
+              <div class="card-body">
+                <div id="table" class="table-editable">
+                  <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x"
+                        aria-hidden="true"></i></a></span>
+                  <div class="text-center"><p class="lead" *ngIf = 'Loading'><img src="assets/images/ajax-loader.gif" alt="Loading">
+                  </p></div>
+                  <table  class="table table-bordered table-responsive-md table-striped text-center">
+                    <tr>
+                      <th class="text-center">S.No</th>
+                      <th class="text-center">Make</th>
+                      <th class="text-center">Model</th>
+                      <th class="text-center">Type</th>
+                      <th class="text-center">Edit</th>
+                    </tr>
+                    <tr  *ngFor="let vehicle of vehicleList let i = index">
+                      <td class="pt-3-half">{{i+1}}</td>
+                      <td class="pt-3-half">{{vehicle.Make}}</td>
+                      <td class="pt-3-half">{{vehicle.Model}}</td>
+                      <td class="pt-3-half">{{vehicle.VehicleType}}</td>
+                      <td>
+                        <span class="table-remove"><button type="button" [routerLink]="[ 'Edit', vehicle.VehicleType , vehicle.Id ]" class="btn btn-warning btn-rounded btn-sm my-0" >Edit</button></span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="row">
+          <router-outlet></router-outlet>
+      </div>
+    </div>

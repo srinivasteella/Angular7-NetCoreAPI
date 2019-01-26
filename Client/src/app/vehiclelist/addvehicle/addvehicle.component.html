@@ -1,0 +1,30 @@
+<div class="container" >
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <div class="row">
+            <h3>Please fill below form to add a {{requestedvehicletype}}</h3>
+        </div>
+        <form *ngIf='vehicleProps' novalidate (ngSubmit)='onSubmit(form.value)' [formGroup]="form">
+          <div *ngFor="let prop of vehicleProps let i = index">
+            <label [attr.for]="prop" class="control-label required">{{prop.Name}}</label>
+            <input
+              type="text"
+              [id]="i"
+              [formControlName]= "prop.Name"
+              [pattern]= "prop.Regex"
+              class="form-control"
+              [required] = "prop.Required">
+              <span *ngIf="!form.get(prop.Name).valid && form.get(prop.Name).touched" class="help-block">
+                  Please enter {{prop.Name}}
+                </span>
+                      </div>
+          <br>
+                      <span *ngIf="!form.valid && form.touched" class="help-block">
+                          Please enter a valid data
+                        </span>
+                        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Add {{requestedvehicletype}}</button>
+                        <button class="btn btn-primary" type="button" style="margin-left: 5px" (click)='cancel()'>Cancel</button>
+        </form>
+    </div>
+  </div>
+</div>
