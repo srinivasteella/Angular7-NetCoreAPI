@@ -62,7 +62,7 @@ The overall objective of the applications is to make an API that allows to manag
 >   
 >   5. **Server** [backend webapi service] shall start running on port **5000**
 >   6. Access the API from here : http://localhost:5000
->   7. ![VehicleListHome](https://github.com/srinivasteella/Angular7-NetCoreAPI/blob/master/VehicleListHome.JPG "VehicleList")
+>   7. ![VehicleListHome](https://github.com/srinivasteella/Angular7-NetCoreAPI/blob/master/swagger.JPG "VehicleList")
 
 ##### b) To start the front end application
 >  Within Visual Studio Code Open a new command terminal 
