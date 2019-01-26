@@ -3,7 +3,7 @@
 
 #### Car Sales Demo Application - Frontend in Angular 7 and Backend in .netCore2.1 
 
-| ![GitHub Release Date](https://img.shields.io/github/release-date/srinivasteella/vehicle.demo.svg?style=plastic) | [![.Net Framework](https://img.shields.io/badge/DotNet-2.1_Framework-blue.svg?style=plastic)](https://www.microsoft.com/net/download/dotnet-core/2.1) |[![Node](https://img.shields.io/badge/Node-Js-blue.svg?style=plastic)](https://nodejs.org/en/download/) | ![GitHub language count](https://img.shields.io/github/languages/count/srinivasteella/Angular7-NetCoreAPI.svg) | ![GitHub top language](https://img.shields.io/github/languages/top/srinivasteella/Angular7-NetCoreAPI.svg) |![GitHub repo size in bytes](https://img.shields.io/github/repo-size/srinivasteella/vehicle.demo.svg) 
+| ![GitHub Release Date](https://img.shields.io/github/release-date/srinivasteella/Angular7-NetCoreAPI.svg?style=plastic) | [![.Net Framework](https://img.shields.io/badge/DotNet-2.1_Framework-blue.svg?style=plastic)](https://www.microsoft.com/net/download/dotnet-core/2.1) |[![Node](https://img.shields.io/badge/Node-Js-blue.svg?style=plastic)](https://nodejs.org/en/download/) | ![GitHub language count](https://img.shields.io/github/languages/count/srinivasteella/Angular7-NetCoreAPI.svg) | ![GitHub top language](https://img.shields.io/github/languages/top/srinivasteella/Angular7-NetCoreAPI.svg) |![GitHub repo size in bytes](https://img.shields.io/github/repo-size/srinivasteella/Angular7-NetCoreAPI.svg) 
 | ---          | ---        | ---      | ---        |  --- | --- |
 
 ---------------------------------------
