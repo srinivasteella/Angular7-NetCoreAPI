@@ -20,7 +20,7 @@ namespace VehicleSale.Demo
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:63643");
+                .UseUrls("http://localhost:5000");
 
     }
 }
