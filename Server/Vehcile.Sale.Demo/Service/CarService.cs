@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -30,6 +30,7 @@ namespace VehicleSale.Demo.Service
 
         public async Task<string> AddVehicle(Vehicle vehicle)
         {
+            if (vehicle == null) return null;
             try
             {
                 Car car = vehicle as Car;
@@ -46,23 +47,24 @@ namespace VehicleSale.Demo.Service
 
         public async Task<Vehicle> GetSpecificVehicle(Vehicle vehicle)
         {
+            if (vehicle == null) return null;
+            Vehicle targetVehicle = null;
             try
             {
-                var targetItem = await _context.Cars.FindAsync(vehicle.Id);
-                if (targetItem == null)
+                targetVehicle = await _context.Cars.FindAsync(vehicle.Id);
+                if (targetVehicle == null)
                     return new Car();
-
-                return targetItem;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //shout/catch/throw/log
-                return null;
             }
+            return targetVehicle;
         }
 
         public async Task<string> UpdateVehicle(Vehicle vehicle)
         {
+            if (vehicle == null) return null;
             try
             {
                 var targetItem = _context.Cars.Find(vehicle.Id);
@@ -85,7 +87,7 @@ namespace VehicleSale.Demo.Service
         {
             try
             {
-                return _context.Cars;
+                return await Task.Run(()=> _context.Cars);
             }
             catch
             {
@@ -93,6 +95,5 @@ namespace VehicleSale.Demo.Service
                 return null;
             }
         }
-
     }
 }
