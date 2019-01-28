@@ -75,7 +75,7 @@ The overall objective of the applications is to make an API that allows to manag
 >  Now in order to run the angular application (front end application), type npm start on the terminal
 >  
 >  Shortly a browser shall open with url as localhost:5050
-> Please note - No items will be loaded initially as the application is using in-memory data storage. Therefore, please add some vehicles.
+>  ![#f03c15]Please note - No items will be loaded initially as the application is using in-memory data storage. Therefore, please add some vehicles.
 
 
 ##### homepage { landing page }
