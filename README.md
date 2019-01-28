@@ -1,4 +1,4 @@
-# Angular7-NetCoreAPI ![GitHub release](https://img.shields.io/github/release/ajeetx/vehicle.demo.svg?style=for-the-badge) ![Maintenance](https://img.shields.io/maintenance/yes/2019.svg?style=for-the-badge)
+# Angular7-NetCoreAPI ![GitHub release](https://img.shields.io/github/release/srinivasteella/Angular7-NetCoreAPI.svg?style=for-the-badge) ![Maintenance](https://img.shields.io/maintenance/yes/2019.svg?style=for-the-badge)
 
 
 #### Car Sales Demo Application - Frontend in Angular 7 and Backend in .netCore2.1 
