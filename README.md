@@ -77,7 +77,7 @@ The overall objective of the applications is to make an API that allows to manag
 >  Shortly a browser shall open with url as localhost:5050
 >  
 
-Note -<span style="color:red"> **No items will be loaded initially as the application is using in-memory data storage. Therefore, please add some vehicles**.</span>
+Note -<i><span style="color:red"> **No items will be loaded initially as the application is using in-memory data storage. Therefore, please add some vehicles**.</i></span>
 
 
 ##### homepage { landing page }
