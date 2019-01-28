@@ -88,11 +88,11 @@ namespace VehicleSale.Demo.UnitTest
         {
             //given
             SUCCESS = "SUCCESS";
-            moqCarService.Setup(m => m.GetSpecificVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<Vehicle>(new Car()));
+            moqCarService.Setup(m => m.GetSpecificVehicle(It.IsAny<int>())).Returns(Task.FromResult<Vehicle>(new Car()));
             var sut = new DbService(moqCarService.Object, moqBoatService.Object);
 
             //when
-            var result = sut.GetSpecificVehicle(carObject);
+            var result = sut.GetSpecificVehicle(VehicleType.CAR, 1);
 
             //then
             Assert.IsAssignableFrom<Vehicle>(result.Result);

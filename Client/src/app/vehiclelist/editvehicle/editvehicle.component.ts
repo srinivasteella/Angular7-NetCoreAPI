@@ -58,7 +58,7 @@ export class EditvehicleComponent implements OnInit, OnDestroy {
   getProperties(data) {
     this.vehicleProps = this.excludeParams(data);
 
-    this.vehicleService.getVehicle(this.editablevehicle)
+    this.vehicleService.getVehicle(this.editablevehicle.VehicleType.toString(), this.editablevehicle.Id)
        .subscribe(vehicleData => {
          this.vehicleProps.forEach(element => {
            element['Value'] = vehicleData[element['Name']];

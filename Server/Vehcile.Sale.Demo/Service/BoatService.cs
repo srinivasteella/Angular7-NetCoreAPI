@@ -54,28 +54,27 @@ namespace VehicleSale.Demo.Service
             }
         }
 
-        public async Task<Vehicle> GetSpecificVehicle(Vehicle vehicle)
+        public async Task<Vehicle> GetSpecificVehicle(int Id)
         {
+            Vehicle targetVehicle = null;
             try
             {
-                var targetItem = await _context.Boats.FindAsync(vehicle.Id);
-                if (targetItem == null)
+                targetVehicle = await _context.Boats.FindAsync(Id);
+                if (targetVehicle == null)
                     return new Boat();
-
-                return targetItem;
             }
-            catch
+            catch (Exception)
             {
                 //shout/catch/throw/log
-                return null;
             }
+            return targetVehicle;
         }
 
         public async Task<IEnumerable<Vehicle>> ViewAllVehicle()
         {
             try
             {
-               return await Task.Run(()=> _context.Boats);
+                return await Task.Run(() => _context.Boats);
             }
             catch
             {

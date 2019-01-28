@@ -123,19 +123,20 @@ namespace VehicleSale.Demo.Controllers
         /// <summary>
         /// Get a vehicle with details
         /// </summary>
-        /// <param name="vehicle"></param>
+        /// <param name="vehicletype"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost("Get")]
+        [HttpGet("{vehicletype}/{Id}")]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<Vehicle>> GetSpecificVehicle([FromBody]JObject vehicle)
+        public async Task<ActionResult<Vehicle>> GetSpecificVehicle(string vehicletype, int id)
         {
-            if (vehicle == null || !ModelState.IsValid) return BadRequest(ModelState);
+            //if (type == null || !ModelState.IsValid) return BadRequest(ModelState);
 
             Vehicle specificvehicle;
             try
             {
-                specificvehicle = await _vehicleService.GetSpecificVehicle(vehicle);
+                specificvehicle = await _vehicleService.GetSpecificVehicle(vehicletype, id);
                 if (specificvehicle == null)
                     return NotFound();
             }

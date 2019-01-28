@@ -14,7 +14,7 @@ namespace VehicleSale.Demo.Service
 
         Task<IEnumerable<Vehicle>> GetAllVehicles();
 
-        Task<Vehicle> GetSpecificVehicle(Vehicle vehicle);
+        Task<Vehicle> GetSpecificVehicle(VehicleType vehicletype, int Id);
 
     }
     public class DbService : IDbService
@@ -91,11 +91,11 @@ namespace VehicleSale.Demo.Service
             }
         }
 
-        public async Task<Vehicle> GetSpecificVehicle(Vehicle vehicle)
+        public async Task<Vehicle> GetSpecificVehicle(VehicleType type, int Id)
         {
             try
             {
-                return await dict[vehicle.VehicleType].GetSpecificVehicle(vehicle);
+                return await dict[type].GetSpecificVehicle(Id);
             }
             catch
             {

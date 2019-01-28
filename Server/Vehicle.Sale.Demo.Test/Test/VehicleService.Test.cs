@@ -115,18 +115,16 @@ namespace VehicleSale.Demo.UnitTest
         [Fact]
         public void GetSpecificVehicle_returns_specific_vehicle()
         {
-            moqDbService.Setup(m => m.GetSpecificVehicle(It.IsAny<Vehicle>())).Returns(Task.FromResult<Vehicle>(new Car()));
+            string vechiclType = "CAR";
+            int Id = 1;
+            moqDbService.Setup(m => m.GetSpecificVehicle(It.IsAny<VehicleType>(), It.IsAny<int>())).Returns(Task.FromResult<Vehicle>(new Car()));
             moqVehicleConverter.Setup(m => m.Convert(It.IsAny<JObject>())).Returns(new Car());
 
             //given 
             var sut = new VehicleService(moqVehicleStrategyContext.Object, moqDbService.Object, moqVehicleConverter.Object);
 
-            JObject carObject = JObject.FromObject(new Car()
-            {
-                Id = 1
-            });
             //when
-            var result = sut.GetSpecificVehicle(carObject);
+            var result = sut.GetSpecificVehicle(vechiclType, Id);
 
             //then
             Assert.IsAssignableFrom<Vehicle>(result.Result);

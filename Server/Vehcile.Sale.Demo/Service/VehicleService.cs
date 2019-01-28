@@ -14,7 +14,7 @@ namespace VehicleSale.Demo.Service
         Task<string> AddVehicle(JObject vehicle);
         Task<string> UpdateVehicle(JObject vehicle);
         Task<IEnumerable<Vehicle>> GetAllVehicles();
-        Task<Vehicle> GetSpecificVehicle(JObject vehicle);
+        Task<Vehicle> GetSpecificVehicle(string type, int Id);
     }
     public class VehicleService : IVehicleService
     {
@@ -58,14 +58,13 @@ namespace VehicleSale.Demo.Service
             }
         }
 
-        public async Task<Vehicle> GetSpecificVehicle(JObject vehicleObj)
+        public async Task<Vehicle> GetSpecificVehicle(string type, int Id)
         {
-            Vehicle vehicle;
+            VehicleType vehicletype;
             try
             {
-                vehicle = _vehicleConverter.Convert(vehicleObj);
-                if (vehicle != null)
-                    return await _dbService.GetSpecificVehicle(vehicle);
+                if (Enum.TryParse(type, true, out vehicletype))
+                    return await _dbService.GetSpecificVehicle(vehicletype, Id);
                 else return null;
             }
             catch

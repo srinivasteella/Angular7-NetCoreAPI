@@ -46,8 +46,8 @@ constructor(private http: HttpClient, private dataservice: DataService) { }
     return this.http.put<string>(this.baseUrl + '/update', updateVehicle);
   }
 
-  getVehicle(retrievevehicle: CurrentVehicle): Observable<Vehicle> {
-     return this.http.post<Vehicle>(this.baseUrl + '/get/', retrievevehicle);
+  getVehicle(vehicleType: string, id: number): Observable<Vehicle> {
+     return this.http.get<Vehicle>(this.baseUrl + '/' + vehicleType + '/' + id);
   }
 
 

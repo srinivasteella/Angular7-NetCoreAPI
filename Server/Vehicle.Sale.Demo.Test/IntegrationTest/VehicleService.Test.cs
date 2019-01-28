@@ -126,15 +126,14 @@ namespace VehicleSale.Demo.IntegrationTest
         [Fact]
         public void GetSpecificVehicle_returns_specific_vehicle()
         {
+            string vechiclType = "CAR";
+            int Id = 1;
+
             //given 
             var sut = new VehicleService(vehicleStrategyContext, dbService, vehicleConverter);
 
-            JObject carObject = JObject.FromObject(new Car()
-            {
-                Id = 1
-            });
             //when
-            var result = sut.GetSpecificVehicle(carObject);
+            var result = sut.GetSpecificVehicle(vechiclType, Id);
 
             //then
             Assert.IsAssignableFrom<Vehicle>(result.Result);

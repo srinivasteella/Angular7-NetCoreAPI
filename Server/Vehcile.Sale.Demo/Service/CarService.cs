@@ -15,7 +15,7 @@ namespace VehicleSale.Demo.Service
         Task<string> AddVehicle(Vehicle vehicle);
         Task<string> UpdateVehicle(Vehicle vehicle);
         Task<IEnumerable<Vehicle>> ViewAllVehicle();
-        Task<Vehicle> GetSpecificVehicle(Vehicle vehicle);
+        Task<Vehicle> GetSpecificVehicle(int Id);
 
 
     }
@@ -45,13 +45,12 @@ namespace VehicleSale.Demo.Service
             }
         }
 
-        public async Task<Vehicle> GetSpecificVehicle(Vehicle vehicle)
+        public async Task<Vehicle> GetSpecificVehicle(int Id)
         {
-            if (vehicle == null) return null;
             Vehicle targetVehicle = null;
             try
             {
-                targetVehicle = await _context.Cars.FindAsync(vehicle.Id);
+                targetVehicle = await _context.Cars.FindAsync(Id);
                 if (targetVehicle == null)
                     return new Car();
             }
@@ -87,7 +86,7 @@ namespace VehicleSale.Demo.Service
         {
             try
             {
-                return await Task.Run(()=> _context.Cars);
+                return await Task.Run(() => _context.Cars);
             }
             catch
             {
