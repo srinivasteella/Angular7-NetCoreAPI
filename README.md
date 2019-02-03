@@ -102,3 +102,5 @@ Note -<i><span style="color:red"> **No items will be loaded initially as the app
 For better experience please chrome browser
 ```
 
+[![HitCount](http://hits.dwyl.io/srinivasteella/Angular7-NetCoreAPI/projects/1.svg)](http://hits.dwyl.io/srinivasteella/Angular7-NetCoreAPI/projects/1) | ![GitHub contributors](https://img.shields.io/github/contributors/srinivasteella/Angular7-NetCoreAPI.svg?style=plastic)|![license](https://img.shields.io/github/license/srinivasteella/Angular7-NetCoreAPI.svg?style=plastic)|
+ | --- | --- | ---|
