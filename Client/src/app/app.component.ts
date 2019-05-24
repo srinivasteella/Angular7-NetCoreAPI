@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'VehicleSaleApp';
 
-  constructor() {}
-
   ngOnInit() {
-    }
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBDYlOgM90iFLKrP11y59t80EBtRE_pj_k',
+      authDomain: 'carsales-a4ba2.firebaseapp.com'
+    });
+  }
+
+  onNavigate(feature: string) {
+    this.title = feature;
+  }
 }
+

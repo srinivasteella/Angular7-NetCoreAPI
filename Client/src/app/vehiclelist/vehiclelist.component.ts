@@ -15,7 +15,6 @@ export class VehiclelistComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public Loading = false;
   constructor(private vehicleService: VehicleService) {
-
    }
 
   ngOnInit() {

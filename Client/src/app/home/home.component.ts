@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private vehicleService: VehicleService) { }
 
   ngOnInit() {
+
     this.vehicleService.getVehicleTypes().subscribe(data => {
       this.vehicletypes = data;
     });  }
